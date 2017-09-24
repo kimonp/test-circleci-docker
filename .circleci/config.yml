@@ -7,7 +7,7 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
-          command: docker build -t miyajan/test-circleci-docker
+          command: docker build -t miyajan/test-circleci-docker .
       - run:
           command: docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
       - run:
