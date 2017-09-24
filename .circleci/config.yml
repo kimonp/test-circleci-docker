@@ -7,8 +7,16 @@ jobs:
       - checkout
       - setup_remote_docker
       - run:
-          command: docker build -t miyajan/test-circleci-docker .
+          command: docker build -t miyajan/test-circleci-docker:${CIRCLE_TAG} .
       - run:
           command: docker login -u ${DOCKER_USER} -p ${DOCKER_PASS}
       - run:
-          command: docker push miyajan/test-circleci-docker
+          command: docker push miyajan/test-circleci-docker:${CIRCLE_TAG}
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build
+          filters:
+            tags:
+              only: /^[0-9]+\.[0-9]+\.[0-9]+$/
